@@ -1,9 +1,9 @@
 server:
-  port: 29201
+  port: 10003
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://www.nekotori.xyz:3306/dev?characterEncoding=utf8&characterSetResults=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://nekotori.xyz:3306/dev?characterEncoding=utf8&characterSetResults=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: 1234abcd@
 mybatis:

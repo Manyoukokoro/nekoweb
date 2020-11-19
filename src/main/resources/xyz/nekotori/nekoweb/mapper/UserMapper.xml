@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.nekotori.nekoweb.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="xyz.nekotori.nekoweb.entity.UserDo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="first_name" jdbcType="VARCHAR" property="firstName" />
+    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+    <result column="creat_time" jdbcType="DATE" property="creatTime" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="is_active" jdbcType="BIT" property="isActive" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="e_mail" jdbcType="VARCHAR" property="eMail" />
+    <result column="password_hashed" jdbcType="VARCHAR" property="passwordHashed" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="forbid_until" jdbcType="DATE" property="forbidUntil" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, first_name, last_name, creat_time, update_time, is_active, user_name, e_mail, 
+    password_hashed, `location`, `level`, forbid_until
+  </sql>
+  <select id="selectByExample" parameterType="xyz.nekotori.nekoweb.entity.UserDoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `user`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `user`
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `user`
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="xyz.nekotori.nekoweb.entity.UserDoExample">
+    delete from `user`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="xyz.nekotori.nekoweb.entity.UserDo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into `user` (first_name, last_name, creat_time, 
+      update_time, is_active, user_name, 
+      e_mail, password_hashed, `location`, 
+      `level`, forbid_until)
+    values (#{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{creatTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{isActive,jdbcType=BIT}, #{userName,jdbcType=VARCHAR}, 
+      #{eMail,jdbcType=VARCHAR}, #{passwordHashed,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{forbidUntil,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="xyz.nekotori.nekoweb.entity.UserDo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into `user`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="firstName != null">
+        first_name,
+      </if>
+      <if test="lastName != null">
+        last_name,
+      </if>
+      <if test="creatTime != null">
+        creat_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isActive != null">
+        is_active,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="eMail != null">
+        e_mail,
+      </if>
+      <if test="passwordHashed != null">
+        password_hashed,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="forbidUntil != null">
+        forbid_until,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="firstName != null">
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null">
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isActive != null">
+        #{isActive,jdbcType=BIT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordHashed != null">
+        #{passwordHashed,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="forbidUntil != null">
+        #{forbidUntil,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="xyz.nekotori.nekoweb.entity.UserDoExample" resultType="java.lang.Long">
+    select count(*) from `user`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update `user`
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.firstName != null">
+        first_name = #{record.firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastName != null">
+        last_name = #{record.lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=DATE},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=DATE},
+      </if>
+      <if test="record.isActive != null">
+        is_active = #{record.isActive,jdbcType=BIT},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eMail != null">
+        e_mail = #{record.eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwordHashed != null">
+        password_hashed = #{record.passwordHashed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        `location` = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        `level` = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.forbidUntil != null">
+        forbid_until = #{record.forbidUntil,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update `user`
+    set id = #{record.id,jdbcType=BIGINT},
+      first_name = #{record.firstName,jdbcType=VARCHAR},
+      last_name = #{record.lastName,jdbcType=VARCHAR},
+      creat_time = #{record.creatTime,jdbcType=DATE},
+      update_time = #{record.updateTime,jdbcType=DATE},
+      is_active = #{record.isActive,jdbcType=BIT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      e_mail = #{record.eMail,jdbcType=VARCHAR},
+      password_hashed = #{record.passwordHashed,jdbcType=VARCHAR},
+      `location` = #{record.location,jdbcType=VARCHAR},
+      `level` = #{record.level,jdbcType=INTEGER},
+      forbid_until = #{record.forbidUntil,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="xyz.nekotori.nekoweb.entity.UserDo">
+    update `user`
+    <set>
+      <if test="firstName != null">
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null">
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="isActive != null">
+        is_active = #{isActive,jdbcType=BIT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="eMail != null">
+        e_mail = #{eMail,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordHashed != null">
+        password_hashed = #{passwordHashed,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="forbidUntil != null">
+        forbid_until = #{forbidUntil,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="xyz.nekotori.nekoweb.entity.UserDo">
+    update `user`
+    set first_name = #{firstName,jdbcType=VARCHAR},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=DATE},
+      update_time = #{updateTime,jdbcType=DATE},
+      is_active = #{isActive,jdbcType=BIT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      e_mail = #{eMail,jdbcType=VARCHAR},
+      password_hashed = #{passwordHashed,jdbcType=VARCHAR},
+      `location` = #{location,jdbcType=VARCHAR},
+      `level` = #{level,jdbcType=INTEGER},
+      forbid_until = #{forbidUntil,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <cache />
+  <select id="selectByExampleWithRowbounds" parameterType="xyz.nekotori.nekoweb.entity.UserDoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `user`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -34,6 +34,7 @@ public class UserController {
         userService.insertUser(userDto);
         return CommonResponse.ok(HttpStatus.HTTP_ACCEPTED);
         }catch (Exception e){
+
             ErrorResult result = new ErrorResult();
             result.setErrorCode(String.valueOf(HttpStatus.HTTP_INTERNAL_ERROR));
             result.setErrorMessage(MessageConstants.INTERNAL_ERROR);

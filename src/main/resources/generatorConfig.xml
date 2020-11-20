@@ -72,9 +72,17 @@
       type="XMLMAPPER">
       <property name="enableSubPackages" value="true"/>
     </javaClientGenerator>
-    <table tableName="user" domainObjectName="UserDo" delimitIdentifiers="true"
-      mapperName="UserMapper">
-      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-    </table>
+<!--    <table tableName="user" domainObjectName="UserDo" delimitIdentifiers="true"-->
+<!--      mapperName="UserMapper">-->
+<!--      <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--    </table>-->
+        <table tableName="article" domainObjectName="ArticleDo" delimitIdentifiers="true"
+          mapperName="ArticleMapper">
+          <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+<!--    <table tableName="article_details" domainObjectName="ArticleDetailsDo" delimitIdentifiers="true"-->
+<!--      mapperName="ArticleDetailsMapper">-->
+<!--      <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--    </table>-->
   </context>
 </generatorConfiguration>
